@@ -1,3 +1,4 @@
+irm https://microsoft.github.io/docfind/install.ps1 | iex
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge
