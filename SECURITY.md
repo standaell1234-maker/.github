@@ -4,6 +4,8 @@ Thanks for helping make GitHub safe for everyone.
 
 GitHub takes the security of our software products and services seriously, including all of the open source code repositories managed through our GitHub organizations, such as [GitHub](https://github.com/GitHub).
 
+This security policy applies to all public repositories in the GitHub organization. We appreciate the security research community's efforts in responsibly disclosing vulnerabilities.
+
 Even though [open source repositories are outside of the scope of our bug bounty program](https://bounty.github.com/index.html#scope) and therefore not eligible for bounty rewards, we will ensure that your finding gets passed along to the appropriate maintainers for remediation. 
 
 ## Reporting Security Issues
@@ -13,6 +15,8 @@ If you believe you have found a security vulnerability in any GitHub-owned repos
 **Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.**
 
 Instead, please send an email to opensource-security[@]github.com.
+
+### What to Include in Your Report
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 

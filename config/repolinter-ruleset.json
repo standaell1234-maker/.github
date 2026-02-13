@@ -1,69 +1,93 @@
 {
     "$schema": "https://raw.githubusercontent.com/prototypicalpro/repolinter/master/rulesets/schema.json",
     "version": 2,
+
+    // Axioms are reusable conditions that can be referenced in rules
+    // Currently no axioms are defined for this ruleset
     "axioms": {},
+
+    // Rules define the validation checks that repolinter will run
+    // Each rule consists of: level (error/warning), rule definition, optional fix, and policy information
     "rules": {
+        // Rule: license-file-is-MIT
+        // Validates that the repository contains a LICENSE file with MIT License text
+        // Level: warning - will flag but not fail the check
+        // Fix: Creates a LICENSE file with MIT license text if missing or non-compliant
         "license-file-is-MIT": {
             "level": "warning",
             "rule": {
                 "type": "file-contents",
                 "options": {
-                    "globsAll": ["LICENSE*", "COPYING*"],
-                    "nocase": true,
-                    "fail-on-non-existant": true,
-                    "content": "MIT License"
+                    "globsAll": ["LICENSE*", "COPYING*"], // Matches LICENSE, LICENSE.md, COPYING, etc.
+                    "nocase": true, // Case-insensitive matching
+                    "fail-on-non-existant": true, // Fail if no matching file is found
+                    "content": "MIT License" // Required content to validate
                 }
             },
             "fix": {
                 "type": "file-create",
                 "options": {
-                    "file": "LICENSE",
-                    "replace": true,
-                    "text": { "url": "https://opensource.org/licenses/MIT" }
+                    "file": "LICENSE", // Target file to create
+                    "replace": true, // Replace if file already exists
+                    "text": { "url": "https://opensource.org/licenses/MIT" } // Fetch MIT license text from URL
                 }
             },
             "policyInfo": "MIT License is required for code or legal approval for an alternative",
             "policyUrl": "https://github.com/github/open-source/blob/main/policies/release.md"
         },
+
+        // Rule: readme-file-exists
+        // Ensures repository has a README file for project documentation
+        // Level: warning - will flag but not fail the check
+        // Fix: Creates a README.md from template if missing
         "readme-file-exists": {
             "level": "warning",
             "rule": {
                 "type": "file-existence",
                 "options": {
-                    "globsAny": ["README*"],
-                    "nocase": true
+                    "globsAny": ["README*"], // Matches README, README.md, README.txt, etc.
+                    "nocase": true // Case-insensitive matching
                 }
             },
             "fix": {
                 "type": "file-create",
                 "options": {
-                    "file": "README.md",
-                    "text": { "url": "https://raw.githubusercontent.com/newrelic/open-source-tools/master/nerdpacks/oss-template/README.md" }
+                    "file": "README.md", // Target file to create
+                    "text": { "url": "https://raw.githubusercontent.com/newrelic/open-source-tools/master/nerdpacks/oss-template/README.md" } // Fetch template from URL
                 }
             },
             "policyInfo": "GitHub requires a README file in all projects. This README should give a general overview of the project, and should point to additional resources (security, contributing, etc.) where developers and users can learn further",
             "policyUrl": "https://github.com/github/open-source/blob/main/policies/release.md"
         },
+
+        // Rule: codeowners-file-exists
+        // Validates that repository has a CODEOWNERS file for maintainer identification
+        // Level: warning - will flag but not fail the check
+        // Fix: Creates a CODEOWNERS file if missing
+        // The CODEOWNERS file defines who is responsible for code in the repository
         "codeowners-file-exists": {
             "level": "warning",
             "rule": {
                 "type": "file-existence",
                 "options": {
-                    "globsAny": ["CODEOWNERS*", "*/CODEOWNERS*", ".github/CODEOWNERS*"],
-                    "nocase": true
+                    "globsAny": ["CODEOWNERS*", "*/CODEOWNERS*", ".github/CODEOWNERS*"], // Checks root, any subdirectory, and .github directory
+                    "nocase": true // Case-insensitive matching
                 }
             },
             "fix": {
                 "type": "file-create",
                 "options": {
-                    "file": "CODEOWNERS",
-                    "text": { "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners" }
+                    "file": "CODEOWNERS", // Target file to create at repository root
+                    "text": { "url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners" } // Fetch documentation URL
                 }
             },
             "policyInfo": "GitHub requires a CODEOWNERS file in all projects. This enables GitHub to contact the maintainers in the event it is necessary.",
             "policyUrl": "https://github.com/github/open-source/blob/main/policies/release.md"
         },
     },
+
+    // Format options control how repolinter outputs results
+    // The disclaimer is added to automated issues created by repolinter-action
     "formatOptions": {
         "disclaimer": "🤖*This issue was automatically generated by [repolinter-action](https://github.com/newrelic/repolinter-action), developed by the Open Source and Developer Advocacy team at New Relic.*"
     }
